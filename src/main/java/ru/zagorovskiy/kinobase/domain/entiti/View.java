@@ -1,7 +1,7 @@
-package ru.zagorovskiy.kinobase.entity;
+package ru.zagorovskiy.kinobase.domain.entiti;
 
 import lombok.Data;
-import ru.zagorovskiy.kinobase.entity.enums.Condition;
+import ru.zagorovskiy.kinobase.domain.enums.Condition;
 
 import java.time.LocalDate;
 

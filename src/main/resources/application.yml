@@ -1,1 +1,18 @@
+app:
+  datasource:
+    main:
+      driver-class-name: org.postgresql.Driver
+      jdbc-url: jdbc:postgresql://localhost:5432/KinoBase
+      password: '1234'
+      pool-size: 15
+      username: postgres
 
+server:
+  error:
+    include-binding-errors: always
+    include-message: always
+security:
+  jwt:
+    secret: aXJnZXVqaGFpdWhyZ2lodWpyZ2F1cmdpaGRqb2lqa2Fsc2RyZ2lraGFzaW91a2pyaGdhb2k7a3Nncmg=
+    access: 3600000
+    refresh: 2592000000

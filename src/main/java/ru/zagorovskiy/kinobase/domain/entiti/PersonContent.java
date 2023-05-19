@@ -1,4 +1,4 @@
-package ru.zagorovskiy.kinobase.entity;
+package ru.zagorovskiy.kinobase.domain.entiti;
 
 import lombok.Data;
 

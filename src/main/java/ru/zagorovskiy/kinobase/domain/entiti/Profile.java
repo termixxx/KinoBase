@@ -1,6 +1,9 @@
-package ru.zagorovskiy.kinobase.entity;
+package ru.zagorovskiy.kinobase.domain.entiti;
 
 import lombok.Data;
+import ru.zagorovskiy.kinobase.domain.enums.Role;
+
+import java.util.Set;
 
 @Data
 public class Profile {
@@ -9,4 +12,5 @@ public class Profile {
     private String password;
     private String email;
     private String nickname;
+    private Set<Role> roles;
 }

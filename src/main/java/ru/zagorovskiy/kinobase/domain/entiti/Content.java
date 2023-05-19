@@ -1,9 +1,9 @@
-package ru.zagorovskiy.kinobase.entity;
+package ru.zagorovskiy.kinobase.domain.entiti;
 
 import lombok.Data;
-import ru.zagorovskiy.kinobase.entity.enums.Country;
-import ru.zagorovskiy.kinobase.entity.enums.Genre;
-import ru.zagorovskiy.kinobase.entity.enums.TypeOfContent;
+import ru.zagorovskiy.kinobase.domain.enums.Country;
+import ru.zagorovskiy.kinobase.domain.enums.Genre;
+import ru.zagorovskiy.kinobase.domain.enums.TypeOfContent;
 
 import java.time.LocalDate;
 import java.util.List;

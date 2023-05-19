@@ -1,4 +1,4 @@
-package ru.zagorovskiy.kinobase.entity.enums;
+package ru.zagorovskiy.kinobase.domain.enums;
 
 public enum Genre {
     ACTION("action"),

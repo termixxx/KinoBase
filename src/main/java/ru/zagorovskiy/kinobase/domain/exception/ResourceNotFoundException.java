@@ -1,4 +1,4 @@
-package ru.zagorovskiy.kinobase.entity.exception;
+package ru.zagorovskiy.kinobase.domain.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(String message) {

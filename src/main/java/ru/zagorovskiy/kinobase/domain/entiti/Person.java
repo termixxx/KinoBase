@@ -1,7 +1,7 @@
-package ru.zagorovskiy.kinobase.entity;
+package ru.zagorovskiy.kinobase.domain.entiti;
 
 import lombok.Data;
-import ru.zagorovskiy.kinobase.entity.enums.Position;
+import ru.zagorovskiy.kinobase.domain.enums.Position;
 
 @Data
 public class Person {

@@ -1,2 +1,18 @@
-package ru.zagorovskiy.kinobase.repository;public interface ViewRepostitory {
+package ru.zagorovskiy.kinobase.repository;
+
+import org.springframework.stereotype.Repository;
+import ru.zagorovskiy.kinobase.domain.entiti.View;
+
+import java.util.List;
+import java.util.Optional;
+
+@Repository
+public interface ViewRepository {
+    Optional<List<View>> findAllByProfileId(Long profileId);
+
+    void update(View view);
+
+    void create(View view);
+
+    void delete(Long profileId, Long contentId);
 }
