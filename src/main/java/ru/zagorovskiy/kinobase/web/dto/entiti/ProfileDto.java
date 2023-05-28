@@ -4,8 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import ru.zagorovskiy.kinobase.domain.enums.Role;
 import ru.zagorovskiy.kinobase.web.dto.validation.OnCreate;
 import ru.zagorovskiy.kinobase.web.dto.validation.OnUpdate;
+
+import java.util.Set;
 
 @Data
 public class ProfileDto {
@@ -23,4 +26,6 @@ public class ProfileDto {
     private String email;
 
     private String nickname;
+
+    private Set<Role> roles;
 }

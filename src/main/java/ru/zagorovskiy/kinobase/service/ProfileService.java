@@ -9,7 +9,11 @@ public interface ProfileService {
 
     Profile getByLogin(String login);
 
-    Profile update(Profile profile);
+    Profile updatePassword(Profile profile);
+
+    Profile updateNickname(Profile profile);
+
+    Profile updateEmail(Profile profile);
 
     Profile create(Profile profile);
 
