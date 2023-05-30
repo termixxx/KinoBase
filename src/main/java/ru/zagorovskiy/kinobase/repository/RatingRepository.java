@@ -11,6 +11,8 @@ public interface RatingRepository {
 
     Optional<List<Rating>> findAllByContentId(Long contentId);
 
+    Optional<Rating> findByContentIdAndProfileId(Long contentId, Long profileId);
+
     void update(Rating rating);
 
     void create(Rating rating);

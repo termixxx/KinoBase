@@ -10,6 +10,8 @@ import java.util.Optional;
 public interface ViewRepository {
     Optional<List<View>> findAllByProfileId(Long profileId);
 
+    Optional<View> findByContentIdAndProfileId(Long contentId, Long profileId);
+
     void update(View view);
 
     void create(View view);

@@ -28,6 +28,17 @@ public class ViewRepositoryImpl implements ViewRepository {
     }
 
     @Override
+    public Optional<View> findByContentIdAndProfileId(Long contentId, Long profileId) {
+        String query = "SELECT content_id, profile_id, favorite, condition, added_at FROM view " +
+                "WHERE content_id = ? AND profile_id = ?";
+        try {
+            return Optional.ofNullable(jdbcTemplate.queryForObject(query, new ViewRowMapper(), contentId, profileId));
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
+    }
+
+    @Override
     public void update(View view) {
         String query = "UPDATE view SET favorite = ?, condition = ? " +
                 "WHERE content_id = ? AND profile_id = ?";

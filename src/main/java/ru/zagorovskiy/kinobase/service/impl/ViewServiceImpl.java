@@ -27,8 +27,7 @@ public class ViewServiceImpl implements ViewService {
     @Override
     @Transactional
     public View update(View view) {
-        view.setCondition(view.getCondition());
-        view.setFavorite(view.isFavorite());
+        viewRepository.update(view);
         return view;
     }
 
@@ -39,6 +38,9 @@ public class ViewServiceImpl implements ViewService {
         if (view.getCondition() == null) {
             view.setCondition(Condition.WATCHING);
         }
+        if (viewRepository.findByContentIdAndProfileId(view.getContentId(), view.getProfileId()).isPresent()) {
+            throw new IllegalStateException("View already exists.");
+        }
         viewRepository.create(view);
         return view;
     }
@@ -46,6 +48,6 @@ public class ViewServiceImpl implements ViewService {
     @Override
     @Transactional
     public void delete(Long contentId, Long profileId) {
-        viewRepository.delete(profileId, contentId);
+        viewRepository.delete(contentId, profileId);
     }
 }

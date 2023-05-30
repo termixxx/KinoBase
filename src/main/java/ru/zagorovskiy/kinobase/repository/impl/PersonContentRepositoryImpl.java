@@ -30,9 +30,20 @@ public class PersonContentRepositoryImpl implements PersonContentRepository {
     @Override
     public Optional<List<PersonContent>> findAllByPersonId(Long personId) {
         String query = "SELECT content_id, person_id " +
-                "FROM person_content WHERE content_id = ?";
+                "FROM person_content WHERE person_id = ?";
         try {
             return Optional.of(jdbcTemplate.query(query, new PersonContentRowMapper(), personId));
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public Optional<PersonContent> findByContentIdAndPersonId(Long contentId, Long personId) {
+        String query = "SELECT content_id, person_id " +
+                "FROM person_content WHERE content_id = ? AND person_id = ?";
+        try {
+            return Optional.ofNullable(jdbcTemplate.queryForObject(query, new PersonContentRowMapper(), contentId, personId));
         } catch (EmptyResultDataAccessException e) {
             return Optional.empty();
         }

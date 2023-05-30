@@ -11,6 +11,12 @@ public interface PersonService {
 
     List<Person> getAll();
 
+    Person findByFirstNameAndLastName(String firstName, String lastName);
+
+    Person findByFirstName(String firstName);
+
+    Person findByLastName(String lastName);
+
     Person update(Person person);
 
     Person create(Person person);

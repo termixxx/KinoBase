@@ -13,6 +13,8 @@ public interface PersonContentRepository {
 
     Optional<List<PersonContent>> findAllByPersonId(Long personId);
 
+    Optional<PersonContent> findByContentIdAndPersonId(Long contentId, Long personId);
+
     void create(PersonContent personContent);
 
     void delete(Long contentId, Long personId);

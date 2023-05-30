@@ -28,6 +28,17 @@ public class RatingRepositoryImpl implements RatingRepository {
     }
 
     @Override
+    public Optional<Rating> findByContentIdAndProfileId(Long contentId, Long profileId) {
+        String query = "SELECT content_id, profile_id, value FROM rating " +
+                "WHERE content_id = ? AND profile_id = ?";
+        try {
+            return Optional.ofNullable(jdbcTemplate.queryForObject(query, new RatingRowMapper(), contentId, profileId));
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
+    }
+
+    @Override
     public void update(Rating rating) {
         String query = "UPDATE rating SET value = ? " +
                 "WHERE content_id = ? AND profile_id = ?";
