@@ -14,9 +14,9 @@ public interface ContentRepository {
 
     Optional<Content> findByTitle(String title);
 
-    List<Optional<Content>> findAll();
+    Optional<List<Content>> findAll();
 
-    List<Optional<Content>> findAllByGenres(Genre[] genre);
+    Optional<List<Content>> findAllByGenres(Genre[] genre);
 
     void update(Content content);
 

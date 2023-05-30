@@ -9,9 +9,9 @@ import java.util.Optional;
 @Repository
 public interface PersonContentRepository {
 
-    List<Optional<PersonContent>> findAllByContentId(Long contentId);
+    Optional<List<PersonContent>> findAllByContentId(Long contentId);
 
-    // List<Optional<PersonContent>> findAllByPersonId(Long personId);
+    Optional<List<PersonContent>> findAllByPersonId(Long personId);
 
     void create(PersonContent personContent);
 

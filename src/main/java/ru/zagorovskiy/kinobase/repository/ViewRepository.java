@@ -14,5 +14,5 @@ public interface ViewRepository {
 
     void create(View view);
 
-    void delete(Long profileId, Long contentId);
+    void delete(Long contentId, Long profileId);
 }

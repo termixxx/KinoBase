@@ -21,7 +21,7 @@ CREATE TABLE content
 (
     id           SERIAL8 PRIMARY KEY,
     genres       TEXT[]      NOT NULL,
-    country      TEXT[]      NOT NULL,
+    countries    TEXT[]      NOT NULL,
     title        TEXT UNIQUE NOT NULL,
     description  TEXT        NULL,
     type         TEXT        NOT NULL CHECK ( type IN ('movie', 'TV show', 'anime') ),
@@ -50,7 +50,8 @@ CREATE TABLE comment
     id         SERIAL8 PRIMARY KEY,
     content_id BIGINT REFERENCES content (id) NOT NULL,
     profile_id BIGINT REFERENCES profile (id) NOT NULL,
-    message    TEXT                           NULL
+    message    TEXT                           NULL,
+    added_at   DATE DEFAULT NOW()             NOT NULL
 );
 
 

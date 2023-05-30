@@ -6,6 +6,8 @@ import org.hibernate.validator.constraints.Length;
 import ru.zagorovskiy.kinobase.web.dto.validation.OnCreate;
 import ru.zagorovskiy.kinobase.web.dto.validation.OnUpdate;
 
+import java.time.LocalDate;
+
 @Data
 public class CommentDto {
     private Long id;
@@ -19,4 +21,6 @@ public class CommentDto {
     @NotNull(message = "comment cannot be empty", groups = {OnCreate.class, OnUpdate.class})
     @Length(max = 500, message = "comment is too long (max 500 symbols)")
     private String comment;
+
+    private LocalDate addedAt;
 }

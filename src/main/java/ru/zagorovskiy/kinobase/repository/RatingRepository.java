@@ -9,11 +9,11 @@ import java.util.Optional;
 @Repository
 public interface RatingRepository {
 
-    List<Optional<Rating>> findAllByContentId(Long contentId);
+    Optional<List<Rating>> findAllByContentId(Long contentId);
 
-    void update(Rating comment);
+    void update(Rating rating);
 
-    void create(Rating comment);
+    void create(Rating rating);
 
     void delete(Long contentId, Long profileId);
 

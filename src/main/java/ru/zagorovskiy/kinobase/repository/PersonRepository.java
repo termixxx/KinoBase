@@ -10,9 +10,9 @@ import java.util.Optional;
 public interface PersonRepository {
     Optional<Person> findById(Long id);
 
-    List<Optional<Person>> findAll();
+    Optional<List<Person>> findAll();
 
-    Optional<Person> findByFirstNameAndLastName(String firstName, String LastName);
+    Optional<Person> findByFirstNameAndLastName(String firstName, String lastName);
 
     Optional<Person> findByFirstName(String firstName);
 

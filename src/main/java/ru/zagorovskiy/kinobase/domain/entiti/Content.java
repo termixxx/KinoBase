@@ -6,13 +6,13 @@ import ru.zagorovskiy.kinobase.domain.enums.Genre;
 import ru.zagorovskiy.kinobase.domain.enums.TypeOfContent;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 @Data
 public class Content {
     private Long id;
-    private List<Genre> genreList;
-    private List<Country> countryList;
+    private Set<Genre> genreList;
+    private Set<Country> countryList;
     private String title;
     private String description;
     private TypeOfContent type;

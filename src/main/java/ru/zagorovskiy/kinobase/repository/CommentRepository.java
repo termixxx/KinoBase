@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface CommentRepository {
 
-    List<Optional<Comment>> findAllByContentId(Long contentId);
+    Optional<List<Comment>> findAllByContentId(Long contentId);
 
     Optional<Comment> findByMessage(String message);
 
