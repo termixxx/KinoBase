@@ -57,7 +57,7 @@ public class ContentServiceImpl implements ContentService {
     public Content create(Content content) {
         Optional<Content> foundedContent = contentRepository.findByTitle(content.getTitle());
         if (foundedContent.isPresent()) {
-            if (foundedContent.get().getReleaseYear() == content.getReleaseYear()) { // если одинаковое название и год выпуска
+            if (foundedContent.get().getReleaseDate() == content.getReleaseDate()) { // если одинаковое название и год выпуска
                 throw new IllegalStateException("Content already exists.");
             }
         }

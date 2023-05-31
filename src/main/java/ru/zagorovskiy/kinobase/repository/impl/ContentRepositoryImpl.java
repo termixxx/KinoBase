@@ -8,7 +8,6 @@ import ru.zagorovskiy.kinobase.domain.entiti.Content;
 import ru.zagorovskiy.kinobase.domain.enums.Country;
 import ru.zagorovskiy.kinobase.domain.enums.Genre;
 import ru.zagorovskiy.kinobase.repository.ContentRepository;
-import ru.zagorovskiy.kinobase.repository.mappers.CommentRowMapper;
 import ru.zagorovskiy.kinobase.repository.mappers.ContentRowMapper;
 
 import java.util.Arrays;
@@ -22,7 +21,7 @@ public class ContentRepositoryImpl implements ContentRepository {
 
     @Override
     public Optional<Content> findById(Long id) {
-        String query = "SELECT id, genres, countries, title, description, type, release_year, poster_url " +
+        String query = "SELECT id, genres, countries, title, description, type, release_date, poster_url " +
                 "FROM content WHERE id = ?";
         try {
             return Optional.ofNullable(jdbcTemplate.queryForObject(query, new ContentRowMapper(), id));
@@ -33,7 +32,7 @@ public class ContentRepositoryImpl implements ContentRepository {
 
     @Override
     public Optional<Content> findByTitle(String title) {
-        String query = "SELECT id, genres, countries, title, description, type, release_year, poster_url " +
+        String query = "SELECT id, genres, countries, title, description, type, release_date, poster_url " +
                 "FROM content WHERE title ILIKE ?";
         String searchTerm = "%" + title + "%";
         try {
@@ -45,7 +44,7 @@ public class ContentRepositoryImpl implements ContentRepository {
 
     @Override
     public Optional<List<Content>> findAll() {
-        String query = "SELECT id, genres, countries, title, description, type, release_year, poster_url " +
+        String query = "SELECT id, genres, countries, title, description, type, release_date, poster_url " +
                 "FROM content";
         try {
             return Optional.of(jdbcTemplate.query(query, new ContentRowMapper()));
@@ -56,7 +55,7 @@ public class ContentRepositoryImpl implements ContentRepository {
 
     @Override
     public Optional<List<Content>> findAllByGenres(Genre[] genre) {
-        String query = "SELECT id, genres, countries, title, description, type, release_year, poster_url " +
+        String query = "SELECT id, genres, countries, title, description, type, release_date, poster_url " +
                 "FROM content WHERE genres @> ANY(?)"; // TODO проверить работу поиска
         String[] genresList = Arrays.stream(genre)
                 .map(Enum::toString)
@@ -88,20 +87,19 @@ public class ContentRepositoryImpl implements ContentRepository {
 
     @Override
     public void create(Content content) {
-        String query = "INSERT INTO content (genres, countries, title, description, type, release_year, poster_url) " +
+        String query = "INSERT INTO content (genres, countries, title, description, type, release_date, poster_url) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(query,
                 content.getGenreList().stream()
-                        .map(Genre::name)
+                        .map(Enum::name)
                         .toArray(String[]::new),
                 content.getCountryList().stream()
-                        .map(Country::name)
+                        .map(Enum::name)
                         .toArray(String[]::new),
                 content.getTitle(),
                 content.getDescription(),
-                content.getType(),
-                content.getReleaseYear(),
-                content.getReleaseYear(),
+                content.getType().name(),
+                content.getReleaseDate(),
                 content.getPosterUrl());
     }
 

@@ -1,6 +1,7 @@
 package ru.zagorovskiy.kinobase.web.controller;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -47,9 +48,21 @@ public class ControllerAdvice {
         return exceptionBody;
     }
 
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ExceptionBody handleException() {
-        return new ExceptionBody("Internal error");
+    @ExceptionHandler(AuthenticationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ExceptionBody handleAuthenticationException(AuthenticationException authenticationException) {
+        return new ExceptionBody("Authentication failed");
     }
+
+    @ExceptionHandler(IllegalStateException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ExceptionBody handleIllegalStateException(IllegalStateException illegalStateException) {
+        return new ExceptionBody(illegalStateException.getMessage());
+    }
+
+//    @ExceptionHandler(Exception.class)
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    public ExceptionBody handleException() {
+//        return new ExceptionBody("Internal error");
+//    }
 }

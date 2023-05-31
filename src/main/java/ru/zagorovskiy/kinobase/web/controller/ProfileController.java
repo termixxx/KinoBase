@@ -1,5 +1,6 @@
 package ru.zagorovskiy.kinobase.web.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ import java.util.List;
 @RequestMapping("/api/v1/profile")
 @RequiredArgsConstructor
 @Validated
+@Tag(name = "Profile controller", description = "Profile API")
 public class ProfileController {
     private final ProfileService profileService;
     private final ProfileMapper profileMapper;

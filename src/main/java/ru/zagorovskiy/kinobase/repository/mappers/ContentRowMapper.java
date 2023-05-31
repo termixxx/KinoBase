@@ -9,7 +9,6 @@ import ru.zagorovskiy.kinobase.domain.enums.TypeOfContent;
 import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -25,7 +24,7 @@ public class ContentRowMapper implements RowMapper<Content> {
         content.setTitle(rs.getString("title"));
         content.setDescription(rs.getString("description"));
         content.setType(TypeOfContent.valueOf(rs.getString("type")));
-        content.setReleaseYear(LocalDate.of(rs.getInt("release_year"), 1, 1));
+        content.setReleaseDate(rs.getDate("release_date").toLocalDate());
         content.setPosterUrl(rs.getString("poster_url"));
 
         return content;

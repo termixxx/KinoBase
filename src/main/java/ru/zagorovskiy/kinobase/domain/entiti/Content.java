@@ -16,6 +16,6 @@ public class Content {
     private String title;
     private String description;
     private TypeOfContent type;
-    private LocalDate releaseYear;
+    private LocalDate releaseDate;
     private String posterUrl;
 }

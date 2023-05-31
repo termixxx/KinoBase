@@ -54,14 +54,12 @@ public class ProfileServiceImpl implements ProfileService {
     @Override
     @Transactional
     public Profile create(Profile profile) {
-        Profile founded = profileRepository.findByLogin(profile.getLogin())
-                .orElse(null);
-        if (founded == null) {
+        if (profileRepository.findByLogin(profile.getLogin()).isPresent()) {
             throw new IllegalStateException("Profile already exists.");
         }
         profile.setPassword(passwordEncoder.encode(profile.getPassword()));
         profileRepository.create(profile);
-        profile.setId(founded.getId());
+        profile.setId(profileRepository.findByLogin(profile.getLogin()).get().getId());
         return profile;
     }
 

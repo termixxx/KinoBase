@@ -24,8 +24,8 @@ CREATE TABLE content
     countries    TEXT[]      NOT NULL,
     title        TEXT UNIQUE NOT NULL,
     description  TEXT        NULL,
-    type         TEXT        NOT NULL CHECK ( type IN ('movie', 'TV show', 'anime') ),
-    release_year INTEGER     NULL,
+    type         TEXT        NOT NULL CHECK ( type IN ('MOVIE', 'TV_SHOW', 'ANIME') ),
+    release_date DATE        NULL,
     poster_url   TEXT        NULL
 );
 
@@ -60,7 +60,7 @@ CREATE TABLE view
     content_id BIGINT REFERENCES content (id) NOT NULL,
     profile_id BIGINT REFERENCES profile (id) NOT NULL,
     favorite   BOOLEAN DEFAULT false          NOT NULL,
-    condition  TEXT    DEFAULT 'watched'      NOT NULL,
+    condition  TEXT    DEFAULT 'WATCHED'      NOT NULL,
     added_at   DATE    DEFAULT NOW()          NOT NULL,
     UNIQUE (content_id, profile_id)
 );
