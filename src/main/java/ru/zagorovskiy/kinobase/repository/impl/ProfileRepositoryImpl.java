@@ -37,21 +37,9 @@ public class ProfileRepositoryImpl implements ProfileRepository {
     }
 
     @Override
-    public void updatePassword(Profile profile) {
-        String query = "UPDATE profile SET password = ? WHERE id = ?";
-        jdbcTemplate.update(query, profile.getPassword(), profile.getId());
-    }
-
-    @Override
-    public void updateNickname(Profile profile) {
-        String query = "UPDATE profile SET nickname = ? WHERE id = ?";
-        jdbcTemplate.update(query, profile.getNickname(), profile.getId());
-    }
-
-    @Override
-    public void updateEmail(Profile profile) {
-        String query = "UPDATE profile SET email = ? WHERE id = ?";
-        jdbcTemplate.update(query, profile.getEmail(), profile.getId());
+    public void update(Profile profile) {
+        String query = "UPDATE profile SET password = ?, nickname = ?, email = ? WHERE id = ?";
+        jdbcTemplate.update(query, profile.getPassword(), profile.getNickname(), profile.getEmail(), profile.getId());
     }
 
     @Override

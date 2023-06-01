@@ -11,11 +11,7 @@ public interface ProfileRepository {
 
     Optional<Profile> findByLogin(String login);
 
-    void updatePassword(Profile profile);
-
-    void updateNickname(Profile profile);
-
-    void updateEmail(Profile profile);
+    void update(Profile profile);
 
     void create(Profile profile);
 

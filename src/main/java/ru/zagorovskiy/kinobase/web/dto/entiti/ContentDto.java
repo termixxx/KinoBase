@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Data
+@Schema(description = "Content DTO")
 public class ContentDto {
     private Long id;
 

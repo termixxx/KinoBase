@@ -17,7 +17,7 @@ import ru.zagorovskiy.kinobase.web.dto.mappers.ProfileMapper;
 import ru.zagorovskiy.kinobase.web.dto.validation.OnCreate;
 
 @RestController
-@RequestMapping("api/v1/auth/")
+@RequestMapping("api/v1/auth")
 @RequiredArgsConstructor
 @Validated
 @Tag(name = "Auth controller", description = "Auth API")

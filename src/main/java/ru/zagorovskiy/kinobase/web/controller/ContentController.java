@@ -9,6 +9,7 @@ import ru.zagorovskiy.kinobase.service.ContentService;
 import ru.zagorovskiy.kinobase.web.dto.entiti.ContentDto;
 import ru.zagorovskiy.kinobase.web.dto.mappers.ContentMapper;
 import ru.zagorovskiy.kinobase.web.dto.validation.OnCreate;
+import ru.zagorovskiy.kinobase.web.dto.validation.OnUpdate;
 
 @RestController
 @RequestMapping("/api/v1/content")
@@ -28,8 +29,20 @@ public class ContentController {
     @PostMapping("/add")
     public ContentDto createContent(@Validated(OnCreate.class) @RequestBody ContentDto contentDto) {
         Content content = contentMapper.toEntity(contentDto);
-        contentService.create(content);
-        contentDto.setId(content.getId());
-        return contentDto;
+        Content createdContent = contentService.create(content);
+        createdContent.setId(content.getId());
+        return contentMapper.toDto(createdContent);
+    }
+
+    @PutMapping("/update")
+    public ContentDto updateContent(@Validated(OnUpdate.class) @RequestBody ContentDto contentDto) {
+        Content content = contentMapper.toEntity(contentDto);
+        Content updatedContent = contentService.update(content);
+        return contentMapper.toDto(updatedContent);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable Long id) {
+        contentService.delete(id);
     }
 }

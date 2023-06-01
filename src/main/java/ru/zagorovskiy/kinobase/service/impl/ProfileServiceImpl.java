@@ -31,23 +31,9 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     @Transactional
-    public Profile updatePassword(Profile profile) {
+    public Profile update(Profile profile) {
         profile.setPassword(passwordEncoder.encode(profile.getPassword()));
-        profileRepository.updatePassword(profile);
-        return profile;
-    }
-
-    @Override
-    @Transactional
-    public Profile updateNickname(Profile profile) {
-        profileRepository.updateNickname(profile);
-        return profile;
-    }
-
-    @Override
-    @Transactional
-    public Profile updateEmail(Profile profile) {
-        profileRepository.updateEmail(profile);
+        profileRepository.update(profile);
         return profile;
     }
 

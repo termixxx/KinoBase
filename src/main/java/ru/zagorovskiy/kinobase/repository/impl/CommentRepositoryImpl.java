@@ -18,7 +18,7 @@ public class CommentRepositoryImpl implements CommentRepository {
 
     @Override
     public Optional<List<Comment>> findAllByContentId(Long contentId) {
-        String query = "SELECT id, content_id, profile_id, message " +
+        String query = "SELECT id, content_id, profile_id, message, added_at " +
                 "FROM comment WHERE content_id = ?";
         try {
             return Optional.of(jdbcTemplate.query(query, new CommentRowMapper(), contentId));
@@ -29,7 +29,7 @@ public class CommentRepositoryImpl implements CommentRepository {
 
     @Override
     public Optional<Comment> findByMessage(String message) {
-        String query = "SELECT id, content_id, profile_id, message " +
+        String query = "SELECT id, content_id, profile_id, message, added_at " +
                 "FROM comment WHERE message ILIKE ?";
         String searchTerm = "%" + message + "%";
         try {

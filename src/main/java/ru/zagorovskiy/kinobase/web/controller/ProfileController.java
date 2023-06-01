@@ -12,7 +12,6 @@ import ru.zagorovskiy.kinobase.web.dto.entiti.ProfileDto;
 import ru.zagorovskiy.kinobase.web.dto.entiti.ViewDto;
 import ru.zagorovskiy.kinobase.web.dto.mappers.ProfileMapper;
 import ru.zagorovskiy.kinobase.web.dto.mappers.ViewMapper;
-import ru.zagorovskiy.kinobase.web.dto.validation.OnCreate;
 import ru.zagorovskiy.kinobase.web.dto.validation.OnUpdate;
 
 import java.util.List;
@@ -35,33 +34,22 @@ public class ProfileController {
         return profileMapper.toDto(profile);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Long id) {
-        profileService.delete(id);
+    @PutMapping("/update")
+    public ProfileDto updateProfile(@Validated(OnUpdate.class) @RequestBody ProfileDto dto) {
+        Profile profile = profileMapper.toEntity(dto);
+        Profile updatedView = profileService.update(profile);
+        return profileMapper.toDto(updatedView);
     }
 
-    @PutMapping("/{id}/view")
-    public ViewDto update(@PathVariable Long id,
-                          @Validated(OnUpdate.class) @RequestBody ViewDto dto) {
-
-        View view = viewMapper.toEntity(dto);
-        View updatedView = viewService.update(view);
-        return viewMapper.toDto(updatedView);
-    }
-
-    @GetMapping("/{id}/view")
+    @GetMapping("/{id}/views")
     public List<ViewDto> getAllByProfileId(@PathVariable Long id) {
         List<View> views = viewService.getAllByProfileId(id);
         return viewMapper.toDto(views);
     }
 
-    @PostMapping("/{id}/view")
-    public ViewDto createView(@PathVariable Long id,
-                              @Validated(OnCreate.class) @RequestBody ViewDto dto) {
-        dto.setProfileId(id);
-        View view = viewMapper.toEntity(dto);
-        View createdView = viewService.create(view);
-        return viewMapper.toDto(createdView);
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable Long id) {
+        profileService.delete(id);
     }
 
 }
