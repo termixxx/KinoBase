@@ -15,4 +15,7 @@ public interface RatingService {
 
     void delete(Long contentId, Long profileId);
 
+    void deleteAllByProfileId(Long profileId);
+
+    void deleteAllByContentId(Long contentId);
 }

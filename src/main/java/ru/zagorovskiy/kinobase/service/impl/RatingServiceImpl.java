@@ -39,4 +39,14 @@ public class RatingServiceImpl implements RatingService {
     public void delete(Long contentId, Long profileId) {
         ratingRepository.delete(contentId, profileId);
     }
+
+    @Override
+    public void deleteAllByProfileId(Long profileId) {
+        ratingRepository.deleteAllByProfileId(profileId);
+    }
+
+    @Override
+    public void deleteAllByContentId(Long contentId) {
+        ratingRepository.deleteAllByContentId(contentId);
+    }
 }

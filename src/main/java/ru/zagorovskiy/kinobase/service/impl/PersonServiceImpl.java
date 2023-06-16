@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.zagorovskiy.kinobase.domain.entiti.Person;
 import ru.zagorovskiy.kinobase.domain.exception.ResourceNotFoundException;
 import ru.zagorovskiy.kinobase.repository.PersonRepository;
+import ru.zagorovskiy.kinobase.service.PersonContentService;
 import ru.zagorovskiy.kinobase.service.PersonService;
 
 import java.util.List;
@@ -13,6 +14,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PersonServiceImpl implements PersonService {
     private final PersonRepository personRepository;
+
+    private final PersonContentService personContentService;
 
     @Override
     public Person getById(Long id) {
@@ -61,6 +64,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public void delete(Long id) {
+        personContentService.deleteAllByPersonId(id);
         personRepository.delete(id);
     }
 }

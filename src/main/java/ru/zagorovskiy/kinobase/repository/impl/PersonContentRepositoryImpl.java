@@ -60,4 +60,16 @@ public class PersonContentRepositoryImpl implements PersonContentRepository {
         String query = "DELETE FROM person_content WHERE content_id = ? AND person_id = ?";
         jdbcTemplate.update(query, contentId, personId);
     }
+
+    @Override
+    public void deleteAllByContentId(Long contentId) {
+        String query = "DELETE FROM person_content WHERE content_id = ?";
+        jdbcTemplate.update(query, contentId);
+    }
+
+    @Override
+    public void deleteAllByPersonId(Long personId) {
+        String query = "DELETE FROM person_content WHERE person_id = ?";
+        jdbcTemplate.update(query, personId);
+    }
 }

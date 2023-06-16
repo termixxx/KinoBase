@@ -50,4 +50,14 @@ public class ViewServiceImpl implements ViewService {
     public void delete(Long contentId, Long profileId) {
         viewRepository.delete(contentId, profileId);
     }
+
+    @Override
+    public void deleteAllByProfileId(Long profileId) {
+        viewRepository.deleteAllByProfileId(profileId);
+    }
+
+    @Override
+    public void deleteAllByContentId(Long contentId) {
+        viewRepository.deleteAllByContentId(contentId);
+    }
 }

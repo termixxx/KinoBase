@@ -19,4 +19,7 @@ public interface RatingRepository {
 
     void delete(Long contentId, Long profileId);
 
+    void deleteAllByProfileId(Long profileId);
+
+    void deleteAllByContentId(Long contentId);
 }

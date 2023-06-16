@@ -16,4 +16,8 @@ public interface CommentService {
     Comment create(Comment comment);
 
     void delete(Long id);
+
+    void deleteAllByProfileId(Long profileId);
+
+    void deleteAllByContentId(Long contentId);
 }

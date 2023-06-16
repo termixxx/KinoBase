@@ -50,4 +50,14 @@ public class CommentServiceImpl implements CommentService {
     public void delete(Long id) {
         commentRepository.delete(id);
     }
+
+    @Override
+    public void deleteAllByProfileId(Long profileId) {
+        commentRepository.deleteAllByProfileId(profileId);
+    }
+
+    @Override
+    public void deleteAllByContentId(Long contentId) {
+        commentRepository.deleteAllByContentId(contentId);
+    }
 }

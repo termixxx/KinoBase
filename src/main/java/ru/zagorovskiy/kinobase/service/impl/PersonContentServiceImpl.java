@@ -33,4 +33,14 @@ public class PersonContentServiceImpl implements PersonContentService {
     public void delete(Long contentId, Long personId) {
         personContentRepository.delete(contentId, personId);
     }
+
+    @Override
+    public void deleteAllByContentId(Long contentId) {
+        personContentRepository.deleteAllByContentId(contentId);
+    }
+
+    @Override
+    public void deleteAllByPersonId(Long personId) {
+        personContentRepository.deleteAllByPersonId(personId);
+    }
 }

@@ -18,4 +18,8 @@ public interface CommentRepository {
     void create(Comment comment);
 
     void delete(Long id);
+
+    void deleteAllByProfileId(Long profileId);
+
+    void deleteAllByContentId(Long contentId);
 }

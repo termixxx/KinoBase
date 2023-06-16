@@ -7,13 +7,20 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.zagorovskiy.kinobase.domain.entiti.Profile;
 import ru.zagorovskiy.kinobase.domain.exception.ResourceNotFoundException;
 import ru.zagorovskiy.kinobase.repository.ProfileRepository;
+import ru.zagorovskiy.kinobase.service.CommentService;
 import ru.zagorovskiy.kinobase.service.ProfileService;
+import ru.zagorovskiy.kinobase.service.RatingService;
+import ru.zagorovskiy.kinobase.service.ViewService;
 
 @Service
 @RequiredArgsConstructor
 public class ProfileServiceImpl implements ProfileService {
     private final ProfileRepository profileRepository;
     private final PasswordEncoder passwordEncoder;
+
+    private final ViewService viewService;
+    private final CommentService commentService;
+    private final RatingService ratingService;
 
     @Override
     @Transactional(readOnly = true)
@@ -52,6 +59,9 @@ public class ProfileServiceImpl implements ProfileService {
     @Override
     @Transactional
     public void delete(Long id) {
+        viewService.deleteAllByProfileId(id);
+        commentService.deleteAllByProfileId(id);
+        ratingService.deleteAllByProfileId(id);
         profileRepository.delete(id);
     }
 }

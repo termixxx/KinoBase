@@ -58,4 +58,16 @@ public class RatingRepositoryImpl implements RatingRepository {
         String query = "DELETE FROM rating WHERE content_id = ? AND profile_id = ?";
         jdbcTemplate.update(query, contentId, profileId);
     }
+
+    @Override
+    public void deleteAllByProfileId(Long profileId) {
+        String query = "DELETE FROM rating WHERE profile_id = ?";
+        jdbcTemplate.update(query, profileId);
+    }
+
+    @Override
+    public void deleteAllByContentId(Long contentId) {
+        String query = "DELETE FROM rating WHERE content_id = ?";
+        jdbcTemplate.update(query, contentId);
+    }
 }

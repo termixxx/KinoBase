@@ -7,7 +7,7 @@ import ru.zagorovskiy.kinobase.domain.entiti.Content;
 import ru.zagorovskiy.kinobase.domain.enums.Genre;
 import ru.zagorovskiy.kinobase.domain.exception.ResourceNotFoundException;
 import ru.zagorovskiy.kinobase.repository.ContentRepository;
-import ru.zagorovskiy.kinobase.service.ContentService;
+import ru.zagorovskiy.kinobase.service.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +16,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ContentServiceImpl implements ContentService {
     private final ContentRepository contentRepository;
+
+    private final ViewService viewService;
+    private final CommentService commentService;
+    private final RatingService ratingService;
+    private final PersonContentService personContentService;
 
     @Override
     @Transactional(readOnly = true)
@@ -68,6 +73,11 @@ public class ContentServiceImpl implements ContentService {
     @Override
     @Transactional
     public void delete(Long id) {
+        viewService.deleteAllByContentId(id);
+        commentService.deleteAllByContentId(id);
+        ratingService.deleteAllByContentId(id);
+        personContentService.deleteAllByContentId(id);
+
         contentRepository.delete(id);
     }
 }
