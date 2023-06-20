@@ -1,11 +1,16 @@
+spring:
+  cache:
+    cache-names: content, comment, person, personContent, profile, rating, view
+    caffeine:
+      spec: maximumSize=100, expireAfterAccess=30m
 app:
   datasource:
     main:
       driver-class-name: org.postgresql.Driver
       jdbc-url: jdbc:postgresql://localhost:5432/KinoBase
       password: '1234'
-      pool-size: 15
       username: postgres
+      maximum-pool-size: 15
 server:
   error:
     include-binding-errors: always

@@ -1,6 +1,7 @@
 package ru.zagorovskiy.kinobase.repository.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -13,11 +14,13 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class RatingRepositoryImpl implements RatingRepository {
     private final JdbcTemplate jdbcTemplate;
 
     @Override
     public Optional<List<Rating>> findAllByContentId(Long contentId) {
+        log.info(getClass().getName() + " findAllByContentId пошёл в бд" );
         String query = "SELECT content_id, profile_id, value FROM rating " +
                 "WHERE content_id = ?";
         try {
@@ -29,6 +32,7 @@ public class RatingRepositoryImpl implements RatingRepository {
 
     @Override
     public Optional<Rating> findByContentIdAndProfileId(Long contentId, Long profileId) {
+        log.info(getClass().getName() + " findByContentIdAndProfileId пошёл в бд" );
         String query = "SELECT content_id, profile_id, value FROM rating " +
                 "WHERE content_id = ? AND profile_id = ?";
         try {
@@ -40,6 +44,7 @@ public class RatingRepositoryImpl implements RatingRepository {
 
     @Override
     public void update(Rating rating) {
+        log.info(getClass().getName() + " update пошёл в бд" );
         String query = "UPDATE rating SET value = ? " +
                 "WHERE content_id = ? AND profile_id = ?";
         jdbcTemplate.update(query,
@@ -48,6 +53,7 @@ public class RatingRepositoryImpl implements RatingRepository {
 
     @Override
     public void create(Rating rating) {
+        log.info(getClass().getName() + " create пошёл в бд" );
         String query = "INSERT INTO rating(content_id, profile_id, value) VALUES (?, ?, ?)";
         jdbcTemplate.update(query,
                 rating.getContentId(), rating.getProfileId(), rating.getValue());
@@ -55,18 +61,21 @@ public class RatingRepositoryImpl implements RatingRepository {
 
     @Override
     public void delete(Long contentId, Long profileId) {
+        log.info(getClass().getName() + " delete пошёл в бд" );
         String query = "DELETE FROM rating WHERE content_id = ? AND profile_id = ?";
         jdbcTemplate.update(query, contentId, profileId);
     }
 
     @Override
     public void deleteAllByProfileId(Long profileId) {
+        log.info(getClass().getName() + " deleteAllByProfileId пошёл в бд" );
         String query = "DELETE FROM rating WHERE profile_id = ?";
         jdbcTemplate.update(query, profileId);
     }
 
     @Override
     public void deleteAllByContentId(Long contentId) {
+        log.info(getClass().getName() + " deleteAllByContentId пошёл в бд" );
         String query = "DELETE FROM rating WHERE content_id = ?";
         jdbcTemplate.update(query, contentId);
     }

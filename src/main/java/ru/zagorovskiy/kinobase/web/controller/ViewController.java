@@ -2,6 +2,10 @@ package ru.zagorovskiy.kinobase.web.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.zagorovskiy.kinobase.domain.entiti.View;
@@ -17,12 +21,14 @@ import java.util.List;
 @RequestMapping("/api/v1/view")
 @RequiredArgsConstructor
 @Validated
+@CacheConfig(cacheNames = {"view"})
 @Tag(name = "View controller", description = "View API")
 public class ViewController {
     private final ViewService viewService;
     private final ViewMapper viewMapper;
 
     @GetMapping("/{profileId}")
+    @Cacheable(key = "#profileId")
     public List<ViewDto> getAllViewsByProfileId(@PathVariable Long profileId) {
         List<View> views = viewService.getAllByProfileId(profileId);
         return viewMapper.toDto(views);
@@ -36,6 +42,7 @@ public class ViewController {
     }
 
     @PutMapping("/update")
+    @CachePut(key = "#viewDto.contentId")
     public ViewDto updateView(@Validated(OnUpdate.class) @RequestBody ViewDto viewDto) {
         View view = viewMapper.toEntity(viewDto);
         View updatedView = viewService.update(view);
@@ -43,6 +50,7 @@ public class ViewController {
     }
 
     @DeleteMapping("/delete")
+    @CacheEvict(key = "#viewDto.contentId")
     public void deleteView(@RequestBody ViewDto viewDto) {
         viewService.delete(viewDto.getContentId(), viewDto.getProfileId());
     }

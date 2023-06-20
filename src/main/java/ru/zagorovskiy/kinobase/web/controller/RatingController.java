@@ -2,6 +2,9 @@ package ru.zagorovskiy.kinobase.web.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.zagorovskiy.kinobase.domain.entiti.Rating;
@@ -17,6 +20,7 @@ import java.util.List;
 @RequestMapping("/api/v1/rating")
 @RequiredArgsConstructor
 @Validated
+@CacheConfig(cacheNames = {"rating"})
 @Tag(name = "Rating controller", description = "Rating API")
 public class RatingController {
 
@@ -24,6 +28,7 @@ public class RatingController {
     private final RatingMapper ratingMapper;
 
     @GetMapping("/{contentId}")
+    @Cacheable(key = "#contentId")
     public List<RatingDto> getAllRatingsByContentId(@PathVariable Long contentId) {
         List<Rating> ratings = ratingService.getAllByContentId(contentId);
         return ratingMapper.toDto(ratings);
@@ -37,6 +42,7 @@ public class RatingController {
     }
 
     @PutMapping("/update")
+    @CachePut(key = "#ratingDto.contentId")
     public RatingDto updateRating(@Validated(OnUpdate.class) @RequestBody RatingDto ratingDto) {
         Rating rating = ratingMapper.toEntity(ratingDto);
         Rating updatedRating = ratingService.update(rating);

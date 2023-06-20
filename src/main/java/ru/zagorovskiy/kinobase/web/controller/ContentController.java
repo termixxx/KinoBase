@@ -2,6 +2,10 @@ package ru.zagorovskiy.kinobase.web.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.zagorovskiy.kinobase.domain.entiti.Content;
@@ -15,12 +19,14 @@ import ru.zagorovskiy.kinobase.web.dto.validation.OnUpdate;
 @RequestMapping("/api/v1/content")
 @RequiredArgsConstructor
 @Validated
+@CacheConfig(cacheNames = {"content"})
 @Tag(name = "Content controller", description = "Content API")
 public class ContentController {
     private final ContentService contentService;
     private final ContentMapper contentMapper;
 
     @GetMapping("/{id}")
+    @Cacheable(key = "#id")
     public ContentDto getById(@PathVariable Long id) {
         Content content = contentService.getById(id);
         return contentMapper.toDto(content);
@@ -35,6 +41,7 @@ public class ContentController {
     }
 
     @PutMapping("/update")
+    @CachePut(key = "#contentDto.id")
     public ContentDto updateContent(@Validated(OnUpdate.class) @RequestBody ContentDto contentDto) {
         Content content = contentMapper.toEntity(contentDto);
         Content updatedContent = contentService.update(content);
@@ -42,6 +49,7 @@ public class ContentController {
     }
 
     @DeleteMapping("/{id}")
+    @CacheEvict(key = "#id")
     public void deleteById(@PathVariable Long id) {
         contentService.delete(id);
     }

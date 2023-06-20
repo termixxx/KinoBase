@@ -1,6 +1,7 @@
 package ru.zagorovskiy.kinobase.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import ru.zagorovskiy.kinobase.web.security.JwtTokenProvider;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
     private final ProfileService profileService;
@@ -20,6 +22,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public JwtResponse login(JwtRequest loginRequest) {
+        log.info("Пользователь логиниться");
         JwtResponse jwtResponse = new JwtResponse();
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(

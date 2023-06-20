@@ -11,7 +11,6 @@ public interface PersonContentService {
 
     PersonContent create(PersonContent personContent);
 
-    void delete(Long contentId, Long personId);
 
     void deleteAllByContentId(Long contentId);
 

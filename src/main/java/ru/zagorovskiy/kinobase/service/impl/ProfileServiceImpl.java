@@ -1,6 +1,7 @@
 package ru.zagorovskiy.kinobase.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,7 @@ import ru.zagorovskiy.kinobase.service.ViewService;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ProfileServiceImpl implements ProfileService {
     private final ProfileRepository profileRepository;
     private final PasswordEncoder passwordEncoder;

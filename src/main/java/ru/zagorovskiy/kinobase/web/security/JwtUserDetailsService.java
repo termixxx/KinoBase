@@ -1,6 +1,8 @@
 package ru.zagorovskiy.kinobase.web.security;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,10 +12,12 @@ import ru.zagorovskiy.kinobase.service.ProfileService;
 
 @Service
 @RequiredArgsConstructor
+@CacheConfig(cacheNames = {"profile"})
 public class JwtUserDetailsService implements UserDetailsService {
     private final ProfileService profileService;
 
     @Override
+    @Cacheable(key = "#username")
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Profile profile = profileService.getByLogin(username);
         return JwtEntityFactory.create(profile);

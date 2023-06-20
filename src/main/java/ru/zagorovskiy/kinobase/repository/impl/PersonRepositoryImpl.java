@@ -1,6 +1,7 @@
 package ru.zagorovskiy.kinobase.repository.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -13,11 +14,13 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class PersonRepositoryImpl implements PersonRepository {
     private final JdbcTemplate jdbcTemplate;
 
     @Override
     public Optional<Person> findById(Long id) {
+        log.info(getClass().getName() + " findById пошёл в бд" );
         String query = "SELECT id, first_name, last_name, position FROM person " +
                 "WHERE id = ?";
         try {
@@ -29,6 +32,7 @@ public class PersonRepositoryImpl implements PersonRepository {
 
     @Override
     public Optional<List<Person>> findAll() {
+        log.info(getClass().getName() + " findAll пошёл в бд" );
         String query = "SELECT id, first_name, last_name, position FROM person";
         try {
             return Optional.of(jdbcTemplate.query(query, new PersonRowMapper()));
@@ -39,6 +43,7 @@ public class PersonRepositoryImpl implements PersonRepository {
 
     @Override
     public Optional<Person> findByFirstNameAndLastName(String firstName, String lastName) {
+        log.info(getClass().getName() + " findByFirstNameAndLastName пошёл в бд" );
         String query = "SELECT id, first_name, last_name, position FROM person " +
                 "WHERE first_name = ? AND last_name = ?";
         try {
@@ -50,6 +55,7 @@ public class PersonRepositoryImpl implements PersonRepository {
 
     @Override
     public Optional<Person> findByFirstName(String firstName) {
+        log.info(getClass().getName() + " findByFirstName пошёл в бд" );
         String query = "SELECT id, first_name, last_name, position FROM person " +
                 "WHERE first_name = ?";
         try {
@@ -61,6 +67,7 @@ public class PersonRepositoryImpl implements PersonRepository {
 
     @Override
     public Optional<Person> findByLastName(String LastName) {
+        log.info(getClass().getName() + " findByLastName пошёл в бд" );
         String query = "SELECT id, first_name, last_name, position FROM person " +
                 "WHERE last_name = ?";
         try {
@@ -72,6 +79,7 @@ public class PersonRepositoryImpl implements PersonRepository {
 
     @Override
     public void update(Person person) {
+        log.info(getClass().getName() + " update пошёл в бд" );
         String query = "UPDATE person SET first_name = ?, last_name = ?, position = ? " +
                 "WHERE id = ?";
         jdbcTemplate.update(query, person.getFirstName(), person.getLastName(),
@@ -80,12 +88,14 @@ public class PersonRepositoryImpl implements PersonRepository {
 
     @Override
     public void create(Person person) {
+        log.info(getClass().getName() + " create пошёл в бд" );
         String query = "INSERT INTO person (first_name, last_name, position) VALUES (?, ?, ?)";
         jdbcTemplate.update(query, person.getFirstName(), person.getLastName(), person.getPosition().toString());
     }
 
     @Override
     public void delete(Long id) {
+        log.info(getClass().getName() + " delete пошёл в бд" );
         String query = "DELETE FROM person WHERE id = ?";
         jdbcTemplate.update(query, id);
     }
